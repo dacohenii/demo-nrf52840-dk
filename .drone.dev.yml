@@ -17,7 +17,7 @@ steps:
   image: lagerdata/devenv-cortexm
   commands:
   - ln -s /drone/src /app
-  - lager exec build
+  - NOVERIFY= LAGER_CAFILE_PATH=/etc/ssl/certs/Lager_Data_RSA_Signing_Authority.pem LAGER_WS_HOST=wss://dev.lagerdata.app LAGER_HOST=https://dev.lagerdata.app LAGER_CLIENT_ID=XjJGqmcQdHo1DrpjmWdSFGJnfOrk2Asj LAGER_AUDIENCE=https://dev.lagerdata.app/gateway LAGER_AUTH_URL=https://dev-c-cvn8kq.auth0.com LAGER_CONFIG_FILE_NAME=.lager.dev /opt/local/venvs/lager-cli/bin/python -m lager_cli exec my_build_cmd
 
 - name: flash
   image: lagerdata/devenv-cortexm
