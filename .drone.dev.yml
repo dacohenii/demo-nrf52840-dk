@@ -1,0 +1,34 @@
+kind: pipeline
+type: docker
+name: default
+
+clone:
+  git:
+    image: plugins/git
+    recursive: true
+
+steps:
+- name: submodules
+  image: alpine/git
+  commands:
+  - git submodule update --init --recursive
+
+- name: build
+  image: lagerdata/devenv-cortexm
+  commands:
+  - ln -s /drone/src /app
+  - lager exec build
+
+- name: flash
+  image: lagerdata/devenv-cortexm
+
+  commands:
+  - NOVERIFY= LAGER_CAFILE_PATH=/etc/ssl/certs/Lager_Data_RSA_Signing_Authority.pem LAGER_WS_HOST=wss://dev.lagerdata.app LAGER_HOST=https://dev.lagerdata.app LAGER_CLIENT_ID=XjJGqmcQdHo1DrpjmWdSFGJnfOrk2Asj LAGER_AUDIENCE=https://dev.lagerdata.app/gateway LAGER_AUTH_URL=https://dev-c-cvn8kq.auth0.com LAGER_CONFIG_FILE_NAME=.lager.dev /opt/local/venvs/lager-cli/bin/python -m lager_cli connect --device nrf52 --interface jlink --transport swd --speed 4000  --force
+  - NOVERIFY= LAGER_CAFILE_PATH=/etc/ssl/certs/Lager_Data_RSA_Signing_Authority.pem LAGER_WS_HOST=wss://dev.lagerdata.app LAGER_HOST=https://dev.lagerdata.app LAGER_CLIENT_ID=XjJGqmcQdHo1DrpjmWdSFGJnfOrk2Asj LAGER_AUDIENCE=https://dev.lagerdata.app/gateway LAGER_AUTH_URL=https://dev-c-cvn8kq.auth0.com LAGER_CONFIG_FILE_NAME=.lager.dev /opt/local/venvs/lager-cli/bin/python -m lager_cli testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-example/test-example.hex --test-runner unity
+  - NOVERIFY= LAGER_CAFILE_PATH=/etc/ssl/certs/Lager_Data_RSA_Signing_Authority.pem LAGER_WS_HOST=wss://dev.lagerdata.app LAGER_HOST=https://dev.lagerdata.app LAGER_CLIENT_ID=XjJGqmcQdHo1DrpjmWdSFGJnfOrk2Asj LAGER_AUDIENCE=https://dev.lagerdata.app/gateway LAGER_AUTH_URL=https://dev-c-cvn8kq.auth0.com LAGER_CONFIG_FILE_NAME=.lager.dev /opt/local/venvs/lager-cli/bin/python -m lager_cli testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-ledctrl/test-ledctrl.hex --test-runner unity
+  - NOVERIFY= LAGER_CAFILE_PATH=/etc/ssl/certs/Lager_Data_RSA_Signing_Authority.pem LAGER_WS_HOST=wss://dev.lagerdata.app LAGER_HOST=https://dev.lagerdata.app LAGER_CLIENT_ID=XjJGqmcQdHo1DrpjmWdSFGJnfOrk2Asj LAGER_AUDIENCE=https://dev.lagerdata.app/gateway LAGER_AUTH_URL=https://dev-c-cvn8kq.auth0.com LAGER_CONFIG_FILE_NAME=.lager.dev /opt/local/venvs/lager-cli/bin/python -m lager_cli flash --hexfile _build/app/app.hex
+  - NOVERIFY= LAGER_CAFILE_PATH=/etc/ssl/certs/Lager_Data_RSA_Signing_Authority.pem LAGER_WS_HOST=wss://dev.lagerdata.app LAGER_HOST=https://dev.lagerdata.app LAGER_CLIENT_ID=XjJGqmcQdHo1DrpjmWdSFGJnfOrk2Asj LAGER_AUDIENCE=https://dev.lagerdata.app/gateway LAGER_AUTH_URL=https://dev-c-cvn8kq.auth0.com LAGER_CONFIG_FILE_NAME=.lager.dev /opt/local/venvs/lager-cli/bin/python -m lager_cli run
+
+trigger:
+  branch:
+  - master
