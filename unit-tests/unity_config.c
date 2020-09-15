@@ -31,6 +31,11 @@ void target_putc(char a)
     nrf_uart_txd_set(TARGET_UART, a);
     while(!nrf_uart_event_check(TARGET_UART, NRF_UART_EVENT_TXDRDY));
     NRF_UART0->EVENTS_TXDRDY = 0;
+    //Super Hacky delay that gets /dev/ttyS0 working properly on RPi4
+    //Apparently on RPi4 /dev/ttyS0 is bit banged and so sending data
+    //to it too quickly can screw the ttyS0 port up 
+    volatile int i;
+    for(i=0;i<10000;i++);
 }
 
 void target_init_putc(void)

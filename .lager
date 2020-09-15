@@ -4,9 +4,6 @@
 image = lagerdata/devenv-cortexm
 mount_dir = /app
 shell = /bin/bash
-cmd.build-app = mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build . --target app
-cmd.clean = rm -rf _build
 cmd.build = mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build .
-cmd.build-test-example = mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build . --target test-example
-cmd.build-test-ledctrl = mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build . --target test-ledctrl
+cmd.clean = cd _build;ninja -t clean
 

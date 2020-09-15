@@ -1,0 +1,33 @@
+name: Run tests
+on: [push]
+
+jobs:
+  build_and_flash:
+    name: Build and Flash
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Build
+        uses: docker://lagerdata/devenv-cortexm@sha256:6a08db6ce3143ed312a46ea4bcf8054d6ab97705687eb1b98f2df095a1f807d7
+        with:
+          entrypoint: lager
+          args: exec build
+
+      - name: Connect horse
+        uses: docker://lagerdata/lager-cli:v0.1.33
+        env:
+          LAGER_SECRET_TOKEN: ${{ secrets.AKBAR_SECRET_TOKEN }}
+        with:
+          entrypoint: lager
+          args: connect --device nrf52 --interface ftdi --transport swd --gateway helpful-horse --force
+
+      - name: Testrun horse
+        uses: docker://lagerdata/lager-cli:v0.1.33
+        env:
+          LAGER_SECRET_TOKEN: ${{ secrets.AKBAR_SECRET_TOKEN }}
+        with:
+          entrypoint: lager
+          args: testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-example/test-example --gateway helpful-horse

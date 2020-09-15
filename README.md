@@ -15,6 +15,8 @@ Before experimenting with this project there are a couple of pre-requisites
   
 
 ## Build Instructions
+This repository has one submodule (Unity unit testing framework) so when cloning make sure to include the `--recurse-submodules` flag.  
+If the repo has already been cloned and the `--recurse-submodules` flag was not included you can run `git submodule update --init --recursive`  
 A Lager environment with build instructions is included in this repository.  
 To build the project simply run: `lager exec build`  
 This will build all the targets in this project.  
@@ -33,7 +35,7 @@ For example, to build this project using CMake + Ninja a user can define the fol
 `lager exec --command "mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build ." --save-as my_build_cmd`  
 Moving forward a user could then run `lager exec my_build_cmd`  
 Similarly to create a "clean" command a user could do:  
-`lager exec --comman "rm -rf _build" --save-as my_clean_cmd`  
+`lager exec --command "rm -rf _build" --save-as my_clean_cmd`  
 and run it as `lager exec my_clean_cmd`  
 
 
@@ -68,3 +70,4 @@ You can test a deploy by doing an empty commit, and then pushing to the remote r
 `git commit --allow-empty`  
 `git push`  
 You can view progress of the deploy by going to drone.app.lagerdata.com, selecting the demo repository, clicking on the latest commit, and choosing "Activity Feed".  
+*NOTE: If you deleted the original development environment (.e.g `lager devenv delete`) and create new commands, then you will need to update the .drone.yml file with the new build commands in place of `lager exec build`.*  
