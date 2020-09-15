@@ -17,7 +17,7 @@ steps:
   image: lagerdata/devenv-cortexm
   commands:
   - ln -s /drone/src /app
-  - lager exec my_build_cmd
+  - lager exec build
 
 - name: flash
   image: lagerdata/devenv-cortexm
