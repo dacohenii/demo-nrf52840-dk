@@ -23,11 +23,12 @@ steps:
   image: lagerdata/devenv-cortexm
 
   commands:
-  - lager connect --device nrf52 --interface jlink --transport swd --speed 4000  --force
-  - lager testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-example/test-example.hex --test-runner unity
-  - lager testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-ledctrl/test-ledctrl.hex --test-runner unity
-  - lager flash --hexfile _build/app/app.hex
-  - lager run
+  - lager connect --device nrf52 --interface ftdi --transport swd --speed 4000  --force --gateway 1
+  - lager testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-example/test-example.hex --test-runner unity --gateway 1
+  - lager testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-ledctrl/test-ledctrl.hex --gateway 1
+  --test-runner unity --gateway 1
+  - lager flash --hexfile _build/app/app.hex --gateway 1
+  - lager run --gateway 1
 
 trigger:
   branch:
