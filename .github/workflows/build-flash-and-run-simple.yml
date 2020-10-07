@@ -72,11 +72,18 @@ jobs:
           args: _build/unit-tests/test-suites/test-example
 
 
-      - name: Flash and run
+      - name: Flash and run 1
         uses: docker://lagerdata/lager-cli:v0.1.37
         env:
           LAGER_SECRET_TOKEN: ${{ secrets.DAVID_SECRET_TOKEN }}
         with:
           entrypoint: /usr/local/bin/lager
-          args: testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-ledctrl/test-ledctrl
+          args: testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-ledctrl/test-ledctrl.hex
 
+      - name: Flash and run 2
+        uses: docker://lagerdata/lager-cli:v0.1.37
+        env:
+          LAGER_SECRET_TOKEN: ${{ secrets.DAVID_SECRET_TOKEN }}
+        with:
+          entrypoint: /usr/local/bin/lager
+          args: testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-example/test-example.hex
