@@ -31,47 +31,6 @@ jobs:
           entrypoint: /usr/local/bin/lager
           args: connect --device nrf52 --force
 
-      - name: wtf
-        uses: docker://lagerdata/lager-cli:v0.1.37
-        env:
-          LAGER_SECRET_TOKEN: ${{ secrets.DAVID_SECRET_TOKEN }}
-        with:
-          entrypoint: ls
-          args: _build
-
-      - name: wtf2
-        uses: docker://lagerdata/lager-cli:v0.1.37
-        env:
-          LAGER_SECRET_TOKEN: ${{ secrets.DAVID_SECRET_TOKEN }}
-        with:
-          entrypoint: ls
-          args: _build/unit-tests
-
-      - name: wtf3
-        uses: docker://lagerdata/lager-cli:v0.1.37
-        env:
-          LAGER_SECRET_TOKEN: ${{ secrets.DAVID_SECRET_TOKEN }}
-        with:
-          entrypoint: ls
-          args: _build/unit-tests/test-suites
-
-      - name: wtf4
-        uses: docker://lagerdata/lager-cli:v0.1.37
-        env:
-          LAGER_SECRET_TOKEN: ${{ secrets.DAVID_SECRET_TOKEN }}
-        with:
-          entrypoint: ls
-          args: _build/unit-tests/test-suites/test-ledctrl
-
-      - name: wtf5
-        uses: docker://lagerdata/lager-cli:v0.1.37
-        env:
-          LAGER_SECRET_TOKEN: ${{ secrets.DAVID_SECRET_TOKEN }}
-        with:
-          entrypoint: ls
-          args: _build/unit-tests/test-suites/test-example
-
-
       - name: Flash and run 1
         uses: docker://lagerdata/lager-cli:v0.1.37
         env:
