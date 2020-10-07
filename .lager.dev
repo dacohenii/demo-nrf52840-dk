@@ -4,6 +4,6 @@
 image = lagerdata/devenv-cortexm
 mount_dir = /app
 shell = /bin/bash
-cmd.my_build_cmd = mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build .
-cmd.my_clean_cmd = rm -rf _build
+cmd.make = mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build .
+cmd.clean = rm -rf _build
 
