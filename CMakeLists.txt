@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
+set(CMAKE_TOOLCHAIN_FILE ../cmake/arm-gcc-toolchain.cmake)
+
 # set the project name and version
 project(demo-atsame70-xpld VERSION 1.0 LANGUAGES C ASM)
 

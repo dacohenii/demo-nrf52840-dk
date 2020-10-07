@@ -53,4 +53,7 @@ Mkfile.old
 dkms.conf
 
 _build
+_dbg
 .DS_STORE
+
+venv

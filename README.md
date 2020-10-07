@@ -32,12 +32,15 @@ To create a new custom command run:
 `lager exec --command "user defined command" --save-as user-defined-shortcut `  
 
 For example, to build this project using CMake + Ninja a user can define the following:  
-`lager exec --command "mkdir -p _build;cd _build; cmake .. -G Ninja -DCMAKE_TOOLCHAIN_FILE=../cmake/arm-gcc-toolchain.cmake;cmake --build ." --save-as my_build_cmd`  
-Moving forward a user could then run `lager exec my_build_cmd`  
+`lager exec --command "mkdir -p _build;cd _build; cmake .. -G Ninja;cmake --build ." --save-as build`  
+Moving forward a user could then run `lager exec build`  
 Similarly to create a "clean" command a user could do:  
-`lager exec --command "rm -rf _build" --save-as my_clean_cmd`  
-and run it as `lager exec my_clean_cmd`  
-
+`lager exec --command "cd _build;ninja -t clean" --save-as clean`  
+and run it as `lager exec clean`  
+Or, if your project has a Makefile you could do:  
+`lager exec --command "make" --save-as make`  
+and  
+`lager exec --command "make clean" --save-as make-clean`  
 
 ## Flashing The Board
 #### Connect To board
