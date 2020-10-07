@@ -37,4 +37,4 @@ jobs:
           LAGER_SECRET_TOKEN: ${{ secrets.DAVID_SECRET_TOKEN }}
         with:
           entrypoint: /usr/local/bin/lager
-          args: testrun --serial-device /dev/ttyACM0 --hexfile _build/unit-tests/test-suites/test-example/test-example.hex
+          args: testrun --serial-device /dev/ttyACM0 --hexfile /github/workspace/_build/unit-tests/test-suites/test-example/test-example.hex
